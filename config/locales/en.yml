@@ -1,0 +1,11 @@
+en:
+  spree:
+    coupons_import:
+      menu: "Import promocodes"
+      title: "Import promotion codes from file"
+      promo_title: "Promo title:"
+      promo_description: "Description:"
+      promo_products: "Select products:"
+      promo_file: "Select txt file containing promo codes:"
+      promo_percent: "Discount %%:"
+      submit: "Import"

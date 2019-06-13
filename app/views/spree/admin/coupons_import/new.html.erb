@@ -1,0 +1,51 @@
+<div class='content-header  page-header'>
+<h1><%=Spree.t("coupons_import.title")%></h1>
+</div>
+	
+<%= render partial: 'spree/shared/error_messages', locals: { target: @coupons_import} %>
+
+<%= render partial: "spree/admin/products/autocomplete", formats: :js %>
+
+<%= form_for [:admin, @coupons_import], html: { multipart: true } do |f| %>
+
+  <fieldset data-hook="coupons_import">
+    
+    <div data-hook="admin_coupons_import_form_group" class="form-group">    
+    
+      <p><%=Spree.t('coupons_import.promo_title')%></p>
+      <%= f.field_container :promo_name, class: ['form-group'] do %>
+        <%= f.text_field :promo_name, class: "", required: 'required' %>
+        <%= f.error_message_on :percent %>
+      <% end %>
+    
+      <p><%=Spree.t('coupons_import.promo_description')%></p>
+      <%= f.field_container :promo_desc, class: ['form-group'] do %>
+        <%= f.text_field :promo_desc, class: "", required: 'required' %>
+        <%= f.error_message_on :promo_desc %>
+      <% end %>
+            
+      <p><%=Spree.t('coupons_import.promo_products')%></p>
+      <%= f.field_container :product, class: ['form-group'] do %>
+        <%= f.hidden_field :product, class: "product_picker", required: 'required' %>
+        <%= f.error_message_on :product %>
+      <% end %>
+    
+      <p><%=Spree.t('coupons_import.promo_file')%></p>
+      <%= f.field_container :file, class: ['form-group'] do %>
+        <%= f.file_field :file, class: "", required: 'required' %>
+        <%= f.error_message_on :file %>
+      <% end %>
+   
+      <p><%=Spree.t('coupons_import.promo_percent')%></p>
+      <%= f.field_container :percent, class: ['form-group'] do %>
+        <%= f.text_field :percent, class: "", required: 'required' %>
+        <%= f.error_message_on :percent %>
+      <% end %>
+
+      <input type="submit" class="btn btn-primary" value="<%=Spree.t('coupons_import.submit')%>">
+    
+    </div>
+    
+  </fieldset>
+  
+<% end %>

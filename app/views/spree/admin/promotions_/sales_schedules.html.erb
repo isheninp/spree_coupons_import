@@ -1,0 +1,60 @@
+<%= render partial: 'spree/admin/shared/product_tabs', locals: { current: 'Sales Schedules' } %>
+<%= render partial: 'spree/admin/variants/autocomplete', formats: :js %>
+
+<%= csrf_meta_tag %>
+
+  <div id="add-line-item">
+    <fieldset>
+      <legend><%= Spree.t(:sales_schedules) %></legend>
+      <div class="row">
+
+<% @variants = @product.variants_and_option_values(current_currency).count>0 ? @product.variants_and_option_values(current_currency) : @product.variants_including_master %>
+<% @variants.each do |variant|%>
+  <h2><%= variant_options variant %></h2>
+  <table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th><%=I18n.t('sales_shedule.title')%></th>
+            <th><%=I18n.t('sales_shedule.start_time')%></th>
+            <th><%=I18n.t('sales_shedule.end_time')%></th>
+            <th><%=I18n.t('sales_shedule.description')%></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody  id="sales_schedules">
+      <% Spree::SalesSchedule.where('variant_id=?', variant.id).order(:number).each do |s| %>
+        <tr id="spree_<%= dom_id(s) %>" data-hook="sales_schedules_row">
+        	<td><%=s.number %></td>
+        	<td><%=s.title %></td>
+        	<td><%=s.start_time.strftime("%F %T") %></td>
+        	<td><%=s.end_time.strftime("%F %T") %></td>
+        	<td><%=s.description %></td>
+            <td class="actions actions-1 text-center">
+              <% if @last_lesson.nil? %>
+                <%= link_to_edit s.id, no_text: true, url: "/admin/sales_schedules/#{s.id}/edit?l=1" if can?(:edit, s) %>
+              <% else %>
+                <%= link_to_edit s.id, no_text: true, url: "/admin/sales_schedules/#{s.id}/edit?l=#{@last_lesson.id}" if can?(:edit, s) %>
+              <% end %>
+              <%= link_to_delete s, url: admin_sales_schedule_url(s), no_text: true if can?(:delete, s)%>
+            </td>
+        </tr>
+        <% @last_lesson = s%>
+      <%end%>
+    </tbody>
+  </table>
+
+  <% if @last_lesson.nil? %>
+    <%= link_to_with_icon('plus', 'Добавить занятие', "/admin/sales_schedules/new?v=#{variant.id}", class: "btn btn-primary")%>
+  <% else %>
+    <%= link_to_with_icon('plus', 'Добавить занятие', "/admin/sales_schedules/new?v=#{variant.id}&l=#{@last_lesson.id}", class: "btn btn-primary")%>
+  <% end %>
+  
+  <hr>
+
+<% end %>
+
+
+      </div>
+    </fieldset>
+  </div>
