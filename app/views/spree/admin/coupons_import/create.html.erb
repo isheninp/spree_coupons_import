@@ -1,0 +1,8 @@
+<h2><%=Spree.t('coupons_import.create_title')%></h2>
+<hr/>
+<% @results.each do |r| %>
+  <%=r[:code] %>
+  <span>-<span>
+  <%=r[:status].nil? ? Spree.t('coupons_import.status_exists') : Spree.t('coupons_import.status_ok')%>
+  <br>
+<%end%>
