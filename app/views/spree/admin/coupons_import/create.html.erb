@@ -3,6 +3,6 @@
 <% @results.each do |r| %>
   <%=r[:code] %>
   <span>-<span>
-  <%=r[:status].nil? ? Spree.t('coupons_import.status_exists') : Spree.t('coupons_import.status_ok')%>
+  <%=r[:status]==false ? Spree.t('coupons_import.status_exists') : Spree.t('coupons_import.status_ok')%>
   <br>
 <%end%>
