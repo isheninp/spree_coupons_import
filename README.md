@@ -1,13 +1,17 @@
 # SpreeCouponsImport
 
-Create promotion with promo codes loading from txt file
+Create promotions with promo codes loading from txt file
 
 File format :
 
 promocode1
+
 promocode2
+
 ...
+
 promocodeN
+
 
 ## Installation
 
