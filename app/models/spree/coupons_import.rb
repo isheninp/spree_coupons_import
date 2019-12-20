@@ -4,8 +4,11 @@ module Spree
     include ActiveModel::Validations
     include ActiveModel::Conversion
     extend ActiveModel::Naming
-    attr_accessor :promo_name, :promo_desc, :product, :file, :percent
-    validates_presence_of :product, :file, :percent
+    attr_accessor :promo_name, :promo_desc, :product, :file, :percent, :amount
+    validates_presence_of :product, :file
+
+    validates :percent, presence: true, unless: :amount
+    validates :amount, presence: true, unless: :percent
     
     def initialize(attributes = {})
       attributes.each do |name, value|
@@ -19,4 +22,3 @@ module Spree
     
   end
 end
-

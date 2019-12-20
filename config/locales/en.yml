@@ -8,8 +8,11 @@ en:
       promo_products: "Select products:"
       promo_file: "Select txt file containing promo codes:"
       promo_percent: "Discount %%:"
+      promo_amount: "Amount:"
       submit: "Import"
       create_title: "Imported keys result"
       status_ok: "Succesfully"
       status_exists: "Already exists"
+      success: "Import ok"
+      error: "Incorrect form data"
       
