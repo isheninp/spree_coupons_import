@@ -34,7 +34,7 @@ module Spree
                 code: code
               })
               if percent > 0
-                promotion.promotion_actions << Spree::Promotion::Actions::CreateAdjustment.create({
+                promotion.promotion_actions << Spree::Promotion::Actions::CreateItemAdjustments.create({
                   calculator: Spree::Calculator::PercentOnLineItem.new(preferred_percent: percent) 
                 })
               end
