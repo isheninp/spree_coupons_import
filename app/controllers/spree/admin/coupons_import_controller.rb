@@ -23,7 +23,9 @@ module Spree
         if percent > 0 || amount > 0
           keys.each do |c|
             code = c.strip
-            if Spree::Promotion.where('code=?', code).count == 0
+            promo = Spree::Promotion.where('code=?', code)
+            if params[:coupons_import][:delete_codes]=="1"
+              promo.destroy_all if promo.count > 0 
               promotion = Spree::Promotion.create!({
                 name: params[:coupons_import][:promo_name],
                 description: params[:coupons_import][:promo_desc],
@@ -51,7 +53,7 @@ module Spree
               promotion_rule.products << products
               @results << {code: code, status: true}
             else
-              @results << {code: code, status: false}
+              @results << {code: code, status: false}  
             end
           end
           @status = Spree.t('coupons_import.success')

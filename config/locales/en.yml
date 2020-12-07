@@ -14,5 +14,6 @@ en:
       status_ok: "Succesfully"
       status_exists: "Already exists"
       success: "Import ok"
+      delete_code_if_exists: "Delete promo if code exists"
       error: "Incorrect form data"
       
