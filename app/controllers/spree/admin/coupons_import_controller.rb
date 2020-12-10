@@ -24,8 +24,11 @@ module Spree
           keys.each do |c|
             code = c.strip
             promo = Spree::Promotion.where('code=?', code)
-            if params[:coupons_import][:delete_codes]=="1"
-              promo.destroy_all if promo.count > 0 
+            overwrite_mode = params[:coupons_import][:delete_codes]=="1"
+
+            promo.destroy_all if promo.count > 0 && overwrite_mode
+
+            if not overwrite_mode and promo.count==0 or overwrite_mode
               promotion = Spree::Promotion.create!({
                 name: params[:coupons_import][:promo_name],
                 description: params[:coupons_import][:promo_desc],
@@ -55,6 +58,7 @@ module Spree
             else
               @results << {code: code, status: false}  
             end
+            
           end
           @status = Spree.t('coupons_import.success')
         else
